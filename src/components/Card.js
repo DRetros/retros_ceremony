@@ -1,6 +1,7 @@
 import React from 'react'
 
 function Card ({ card }) {
+  console.log(card)
   return (
     <div className='card my-1' >
       <div className='card-body'>
