@@ -24,7 +24,7 @@ coverage
 .lock-wscript
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
+build
 
 # Dependency directories
 node_modules
@@ -38,3 +38,7 @@ jspm_packages
 
 # Custom
 .DS_Store
+
+# Firebase
+.firebaserc
+.firebase
