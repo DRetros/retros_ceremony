@@ -42,3 +42,5 @@ jspm_packages
 # Firebase
 .firebaserc
 .firebase
+
+.env

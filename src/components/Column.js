@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import {
   useFirebase,
   useFirebaseConnect,
@@ -8,28 +9,27 @@ import {
 } from 'react-redux-firebase'
 
 import Card from './Card'
-import { addCard } from '../redux/actions'
 
 function Column ({ column }) {
   const [description, setDescription] = useState('')
-  const dispatch = useDispatch()
+  const { gameId } = useParams()
   const firebase = useFirebase()
 
   useFirebaseConnect([
-    'retrospectives' // { path: '/todos' } // object notation
+    `retrospectives/${gameId}`
   ])
 
-  const cards = useSelector(state => state.firebase.ordered.retrospectives)
+  const cards = useSelector(({ firebase: { data } }) => data.retrospectives && data.retrospectives[gameId] && data.retrospectives[gameId].cards)
 
   const handleSubmit = event => {
     const newCard = {
       columnId: column.id,
-      description: description
+      description: description,
+      votes: 0
     }
 
     event.preventDefault()
-    firebase.push('retrospectives', newCard)
-    dispatch(addCard(newCard))
+    firebase.push(`retrospectives/${gameId}/cards`, newCard)
     setDescription('')
   }
 
@@ -50,10 +50,11 @@ function Column ({ column }) {
       ) : isEmpty(cards) ? (
         <div>Todos List Is Empty</div>
       ) : (
-        cards.map((card, index) => {
-          if (card.value.columnId === column.id ) {
-            return <Card card={card} key={index} />
+        Object.keys(cards).map(key => {
+          if (cards[key].columnId === column.id ) {
+            return <Card card={cards[key]} cardId={key} key={key} />
           }
+          return null
         })
       )}
     </div>

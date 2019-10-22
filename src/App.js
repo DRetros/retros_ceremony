@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import * as firebase from 'firebase'
+import firebase from 'firebase/app'
+import firebaseDb from 'firebase/database'
+import { BrowserRouter, Route } from 'react-router-dom'
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 
 import Profile from './Profile.js'
@@ -11,14 +13,14 @@ import Game from './components/Game.js'
 import store from './redux/store'
 
 const fbConfig = {
-  apiKey: "AIzaSyCRk9L1YDq-0gKLbBGXttPtADE71V8SsM0",
-  authDomain: "dretros-8ed83.firebaseapp.com",
-  databaseURL: "https://dretros-8ed83.firebaseio.com",
-  projectId: "dretros-8ed83",
-  storageBucket: "dretros-8ed83.appspot.com",
-  messagingSenderId: "771301618292",
-  appId: "1:771301618292:web:71328227e783da5107d721",
-  measurementId: "G-7041M57B9J"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 }
 // react-redux-firebase config
 const rrfConfig = {
@@ -56,11 +58,21 @@ export default class App extends Component {
         <ReactReduxFirebaseProvider {...rrfProps}>
           <div className='site-wrapper'>
             <div className='site-wrapper-inner'>
-              <Game />
-              {/* { !userSession.isUserSignedIn() ?
-              <Signin userSession={userSession} handleSignIn={ this.handleSignIn } />
-              : <Profile userSession={userSession} handleSignOut={ this.handleSignOut } />
-            } */}
+              <BrowserRouter />
+              <Route exact path='/'>
+                {!userSession.isUserSignedIn() ? (
+                  <Signin
+                    userSession={userSession}
+                    handleSignIn={this.handleSignIn}
+                  />
+                ) : (
+                  <Profile
+                    userSession={userSession}
+                    handleSignOut={this.handleSignOut}
+                  />
+                )}
+              </Route>
+              <Route path='/game/:gameId' component={Game} />
             </div>
           </div>
         </ReactReduxFirebaseProvider>
