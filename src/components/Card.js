@@ -1,16 +1,24 @@
 import React from 'react'
+import {
+  useFirebase
+} from 'react-redux-firebase'
 
 function Card ({ card }) {
-  console.log(card)
+  const firebase = useFirebase()
+
+  const handleDelete = event => {
+    firebase.remove(`retrospectives/${card.key}`)
+  }
+
   return (
     <div className='card my-1' >
       <div className='card-body'>
         <p className='card-text'>
-        {card.description}
+        {card.value.description}
         </p>
-        <a href='#' className='btn btn-primary'>
-          Go somewhere
-        </a>
+        <button onClick={handleDelete} className='btn'>
+          Delete
+        </button>
       </div>
     </div>
   )

@@ -52,7 +52,7 @@ function Column ({ column }) {
       ) : (
         cards.map((card, index) => {
           if (card.value.columnId === column.id ) {
-            return <Card card={card.value} key={index} />
+            return <Card card={card} key={index} />
           }
         })
       )}
