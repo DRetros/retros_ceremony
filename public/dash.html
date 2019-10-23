@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DRetro</title>
+<link href="simpleGridTemplate.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark navbar-static-top">
+      <a class="navbar-brand" href="https://blockstack.org">
+        <img src="white-logo.svg" alt="">
+      </a>
+    </nav>
+<div class="container"> 
+  <section class="intro">
+    <div class="column">
+      <h2>{{user}}</h2>
+      <img src="profile.png" alt="" class="profile"> </div>
+    <div class="column">
+      <h2>Balance: 10 STK</h2>
+      <h2>Retros: 2</h2>
+      <input type="button" class="button" value="New Retro" onclick="nuevo()">
+    </div>
+  </section>
+  <div class="gallery">
+    <div class="thumbnail"> 
+    <div class="dropdown" style="float:right;">
+      <button class="dropbtn">...</button>
+      <div class="dropdown-content">
+      <a href="#">View</a>
+      <a href="#">Edit</a>
+      <a href="#">Delete</a>
+      </div>
+    </div>
+      <a href="#">
+      <h4>Retro 1</h4>
+      <p class="text_column"></input>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></a>
+    </div>
+    <div class="thumbnail" id="nuevo">
+      <div class="dropdown" style="float:right;">
+      <button class="dropbtn">...</button>
+      <div class="dropdown-content">
+      <a href="#">View</a>
+      <a href="#">Edit</a>
+      <a href="#">Delete</a>
+      </div>
+    </div>
+      <h4>Retro 2</h4>
+      <p class="text_column">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></a>
+    </div>
+  </div>
+</div>
+<script>
+function nuevo() {
+  var x = document.getElementById("nuevo");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
