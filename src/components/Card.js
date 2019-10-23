@@ -41,6 +41,13 @@ function Card ({ card, cardId }) {
       <div className='card-body'>
         <p className='card-text'>{card.description}</p>
         <p className='card-text'>Votes: {card.votes}</p>
+        {gameSettings.step === 1 ? (
+          <button onClick={handleDelete} className='btn'>
+            Delete
+          </button>
+        ) : (
+          ''
+        )}
         {gameSettings.step === 2 ? (
           <div>
             <button onClick={handleAddVote} className='btn'>
@@ -53,9 +60,6 @@ function Card ({ card, cardId }) {
         ) : (
           ''
         )}
-        <button onClick={handleDelete} className='btn'>
-          Delete
-        </button>
       </div>
     </div>
   )

@@ -251,6 +251,10 @@ footer {
 	padding-right: 20px;
 }
 
+.action-item {
+	text-align: left;
+}
+
 /* Mobile */
 @media (max-width: 320px) {
 .logo {

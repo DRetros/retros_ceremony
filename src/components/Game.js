@@ -4,6 +4,7 @@ import { useFirebase, useFirebaseConnect, isLoaded } from 'react-redux-firebase'
 import { useParams } from 'react-router-dom'
 
 import Column from './Column'
+import ActionItems from './ActionItems'
 
 function Game () {
   const columns = useSelector(state => state.retrospective.columns)
@@ -25,6 +26,10 @@ function Game () {
       currentStep = gameSettings.step
     }
 
+    if (currentStep === 3) {
+      return
+    }
+
     firebase.update(`retrospectives/${gameId}/settings`, {
       step: currentStep + 1
     })
@@ -35,6 +40,11 @@ function Game () {
     if (gameSettings && gameSettings.step) {
       currentStep = gameSettings.step
     }
+
+    if (currentStep === 1) {
+      return
+    }
+
     firebase.update(`retrospectives/${gameId}/settings`, {
       step: currentStep - 1
     })
@@ -48,19 +58,32 @@ function Game () {
     }
   })
 
+  const getStepTitle = step => {
+    const titles = [
+      'Write some ideas...',
+      "Vote. What's more important?",
+      'Define action items'
+    ]
+
+    return titles[step - 1]
+  }
+
+  if (!isLoaded(gameSettings)) {
+    return 'Loading...'
+  }
+
   return (
-    <div>
-      {isLoaded(gameSettings) ? (
-        gameSettings ? (
-          <h1>Step {gameSettings.step}</h1>
+    <div className='d-flex flex-column'>
+      <div>
+        {gameSettings ? (
+          <h1>{getStepTitle(gameSettings.step)}</h1>
         ) : (
-          <h1>Step 1</h1>
-        )
-      ) : (
-        ''
-      )}
-      <button onClick={prevStep}>Prev</button>
-      <button onClick={nextStep}>Next</button>
+          <h1>{getStepTitle(1)}</h1>
+        )}
+        <button onClick={prevStep}>Prev</button>
+        <button onClick={nextStep}>Next</button>
+      </div>
+      {gameSettings.step === 3 ? <ActionItems /> : ''}
       <div className='d-flex flex-row justify-content-around'>
         {columns.map((column, index) => (
           <Column column={column} key={index} />
