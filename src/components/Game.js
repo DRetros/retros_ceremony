@@ -21,6 +21,10 @@ function Game () {
   )
 
   const nextStep = () => {
+    if (!gameSettings) {
+      return
+    }
+
     let currentStep = 1
     if (gameSettings && gameSettings.step) {
       currentStep = gameSettings.step
@@ -36,6 +40,10 @@ function Game () {
   }
 
   const prevStep = () => {
+    if (!gameSettings) {
+      return
+    }
+
     let currentStep = 1
     if (gameSettings && gameSettings.step) {
       currentStep = gameSettings.step
@@ -68,7 +76,7 @@ function Game () {
     return titles[step - 1]
   }
 
-  if (!isLoaded(gameSettings)) {
+  if (!isLoaded(gameSettings) || !gameSettings) {
     return 'Loading...'
   }
 
