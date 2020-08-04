@@ -12,6 +12,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "3box": "^1.20.3",
     "blockstack": "^19.2.5",
     "firebase": "^7.2.1",
     "react": "^16.8.6",

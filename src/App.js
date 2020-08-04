@@ -6,8 +6,10 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 
 import Profile from './Profile.js'
-import Signin from './Signin.js'
+import Signin3Box from './Signin3Box'
 import { UserSession, AppConfig } from 'blockstack'
+
+import Dashboard from './Dashboard'
 import Game from './components/Game.js'
 
 import store from './redux/store'
@@ -60,17 +62,7 @@ export default class App extends Component {
             <div className='site-wrapper-inner'>
               <BrowserRouter />
               <Route exact path='/'>
-                {!userSession.isUserSignedIn() ? (
-                  <Signin
-                    userSession={userSession}
-                    handleSignIn={this.handleSignIn}
-                  />
-                ) : (
-                  <Profile
-                    userSession={userSession}
-                    handleSignOut={this.handleSignOut}
-                  />
-                )}
+                <Dashboard></Dashboard>
               </Route>
               <Route path='/game/:gameId' component={Game} />
             </div>

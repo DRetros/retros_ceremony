@@ -1,1 +1,2 @@
 export const ADD_CARD = 'ADD_CARD'
+export const ADD_SETTINGS_3BOX = 'ADD_SETTINGS_3BOX'

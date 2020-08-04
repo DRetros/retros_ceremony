@@ -44,3 +44,5 @@ jspm_packages
 .firebase
 
 .env
+
+.vscode
