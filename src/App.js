@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import firebase from 'firebase/app'
 import firebaseDb from 'firebase/database'
-import { BrowserRouter, Route } from 'react-router-dom'
+
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 
 import Profile from './Profile.js'
@@ -13,6 +13,7 @@ import Dashboard from './Dashboard'
 import Game from './components/Game.js'
 
 import store from './redux/store'
+import SiteWrapper from './components/SiteWrapper.jsx'
 
 const fbConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -58,15 +59,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <ReactReduxFirebaseProvider {...rrfProps}>
-          <div className='site-wrapper'>
-            <div className='site-wrapper-inner'>
-              <BrowserRouter />
-              <Route exact path='/'>
-                <Dashboard></Dashboard>
-              </Route>
-              <Route path='/game/:gameId' component={Game} />
-            </div>
-          </div>
+          <SiteWrapper></SiteWrapper>
         </ReactReduxFirebaseProvider>
       </Provider>
     )
