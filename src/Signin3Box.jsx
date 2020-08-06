@@ -49,17 +49,17 @@ export default function Signin3Box() {
   }
 
   return (
-    <div className="panel-landing" id="section-1">
-      <h1 className="landing-heading">Hello HFS!</h1>
-      <p className="lead">
-        <button
-          className="btn btn-primary btn-lg"
-          id="signin-button"
-          onClick={handleSignIn.bind(this)}
-        >
-          Sign In with 3Box
-          </button>
-      </p>
+    <div id="loginPage">
+      <form class="form-signin">
+      <div class="text-center mb-4">
+        <img class="mb-4" src="/images/logo-dretros.svg" alt="" width="72" height="72" />
+        <h1 class="h3 mb-3 font-weight-normal">DRetros</h1>
+        <p>Create Retrospective meetings and get full control of your data. <a href="https://brave.com">Works in latest Brave.</a></p>
+      </div>
+
+      <button class="btn btn-lg btn-primary btn-block" type="button" onClick={handleSignIn.bind(this)}>Sign in</button>
+      <p class="mt-5 mb-3 text-muted text-center">&copy; 2020</p>
+    </form>
     </div>
   );
 
