@@ -21,6 +21,14 @@ export default function Profile3Box () {
     fetchRetrospectives()
   }, [])
 
+  const onClickHandler = async () => {
+    const spaceName = "hackfs"
+    const storage = new Storage()
+    const nSpace = await storage.createRetrospective(settings.box, spaceName)
+    let newSpaces = [...spaces, nSpace['_name']]
+    setSpace(newSpaces)
+  }
+
   console.log(settings.thread)
 
   return (
@@ -51,10 +59,12 @@ export default function Profile3Box () {
             <p className='lead'>Retrospectives available...</p>
             <ul>
               {spaces.map(item => (
-                <li key={item}><Link to={`/game/${item}`}>{item}</Link></li>
+                <li key={item}><Link to={`/game/${item}`}>{`${item}`.replace('dretros-','')}</Link></li>
               ))}
             </ul>
-          
+            <button onClick={onClickHandler}>
+              add space
+            </button>
     </div>
   )
 }
