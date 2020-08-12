@@ -3,11 +3,13 @@ import Box from "3box";
 export default class Storage {
 
     async createRetrospective(box, spaceName) {
-        return await box.openSpace(spaceName);
+        return await box.openSpace("dretros-"+spaceName);
     }
 
     async getRetrospectives(address) {
-        return await Box.listSpaces(address);
+        let retros = await Box.listSpaces(address);
+        let dretros = retros.filter((retro) => retro.includes('dretros-'));
+        return dretros;
     }
 
     async createColumnList(box, columnName, spaceName) {
