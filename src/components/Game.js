@@ -82,15 +82,22 @@ function Game () {
 
   return (
     <div className='d-flex flex-column'>
-      <div>
-        {gameSettings ? (
-          <h1>{getStepTitle(gameSettings.step)}</h1>
-        ) : (
-          <h1>{getStepTitle(1)}</h1>
-        )}
-        <button onClick={prevStep}>Prev</button>
-        <button onClick={nextStep}>Next</button>
+      <div class='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom'>
+        <h1 class='h2'>
+          {gameSettings ? getStepTitle(gameSettings.step) : getStepTitle(1)}
+        </h1>
+        <div class='btn-toolbar mb-2 mb-md-0'>
+          <div class='btn-group mr-2'>
+            <button class='btn btn-sm btn-outline-secondary' onClick={prevStep}>
+              Prev
+            </button>
+            <button class='btn btn-sm btn-outline-secondary' onClick={nextStep}>
+              Next
+            </button>
+          </div>
+        </div>
       </div>
+
       {gameSettings.step === 3 ? <ActionItems /> : ''}
       <div className='d-flex flex-row justify-content-around'>
         {columns.map((column, index) => (

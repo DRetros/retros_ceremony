@@ -15,11 +15,14 @@ function Column ({ column }) {
   const { gameId } = useParams()
   const firebase = useFirebase()
 
-  useFirebaseConnect([
-    `retrospectives/${gameId}`
-  ])
+  useFirebaseConnect([`retrospectives/${gameId}`])
 
-  const cards = useSelector(({ firebase: { data } }) => data.retrospectives && data.retrospectives[gameId] && data.retrospectives[gameId].cards)
+  const cards = useSelector(
+    ({ firebase: { data } }) =>
+      data.retrospectives &&
+      data.retrospectives[gameId] &&
+      data.retrospectives[gameId].cards
+  )
 
   const handleSubmit = event => {
     const newCard = {
@@ -34,29 +37,35 @@ function Column ({ column }) {
   }
 
   return (
-    <div className='d-flex flex-column flex-fill p-5 column'>
-      <h5>{column.title}</h5>
-      <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          className="form-control mb-2"
-          value={description}
-          placeholder='Write an idea'
-          onChange={event => setDescription(event.target.value)}
-        />
-      </form>
-      {!isLoaded(cards) ? (
-        <div>Loading...</div>
-      ) : isEmpty(cards) ? (
-        <div>Todos List Is Empty</div>
-      ) : (
-        Object.keys(cards).map(key => {
-          if (cards[key].columnId === column.id ) {
-            return <Card card={cards[key]} cardId={key} key={key} />
-          }
-          return null
-        })
-      )}
+    <div className='d-flex flex-column flex-fill p-2 column'>
+      <div className='p-3' style={{ background: 'white' }}>
+        <h5>{column.title}</h5>
+      </div>
+      <div className='p-3' style={{ background: 'white' }}>
+        <form onSubmit={handleSubmit}>
+          <input
+            type='text'
+            className='form-control mb-2'
+            value={description}
+            placeholder='Write an idea'
+            onChange={event => setDescription(event.target.value)}
+          />
+        </form>
+      </div>
+      <div className='p-3' style={{ background: 'white' }}>
+        {!isLoaded(cards) ? (
+          <div>Loading...</div>
+        ) : isEmpty(cards) ? (
+          <div>Todos List Is Empty</div>
+        ) : (
+          Object.keys(cards).map(key => {
+            if (cards[key].columnId === column.id) {
+              return <Card card={cards[key]} cardId={key} key={key} />
+            }
+            return null
+          })
+        )}
+      </div>
     </div>
   )
 }

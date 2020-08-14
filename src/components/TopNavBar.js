@@ -4,7 +4,7 @@ function TopNavBar () {
   return (
     <nav class='navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0'>
       <a class='navbar-brand col-sm-3 col-md-2 mr-0' href='#'>
-        <img src='/images/logo-wordmark-dretros.svg' />
+        <img style={{height: "24px"}} src='/images/logo-wordmark-dretros.svg' />
       </a>
       <input
         class='form-control form-control-dark w-100'
