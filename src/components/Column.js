@@ -10,7 +10,7 @@ import {
 
 import Card from './Card'
 
-function Column ({ column }) {
+function Column ({ column, rgbColor, iconCss }) {
   const [description, setDescription] = useState('')
   const { gameId } = useParams()
   const firebase = useFirebase()
@@ -38,8 +38,15 @@ function Column ({ column }) {
 
   return (
     <div className='d-flex flex-column flex-fill p-2 column'>
-      <div className='p-3' style={{ background: 'white' }}>
-        <h5>{column.title}</h5>
+      <div
+        className='d-flex p-3 rounded-top'
+        style={{ background: 'white', borderBottom: `5px solid ${rgbColor}` }}
+      >
+        <h5 style={{ flex: 1 }}>{column.title}</h5>
+        <i
+          class={iconCss}
+          style={{ flex: 0, fontSize: '24px', color: rgbColor }}
+        ></i>
       </div>
       <div className='p-3' style={{ background: 'white' }}>
         <form onSubmit={handleSubmit}>
@@ -49,10 +56,13 @@ function Column ({ column }) {
             value={description}
             placeholder='Write an idea'
             onChange={event => setDescription(event.target.value)}
+            style={{
+              border: 'dashed 2px lightgray'
+            }}
           />
         </form>
       </div>
-      <div className='p-3' style={{ background: 'white' }}>
+      <div className='px-3 pb-3 rounded-bottom' style={{ background: 'white' }}>
         {!isLoaded(cards) ? (
           <div>Loading...</div>
         ) : isEmpty(cards) ? (
@@ -60,7 +70,14 @@ function Column ({ column }) {
         ) : (
           Object.keys(cards).map(key => {
             if (cards[key].columnId === column.id) {
-              return <Card card={cards[key]} cardId={key} key={key} />
+              return (
+                <Card
+                  card={cards[key]}
+                  cardId={key}
+                  key={key}
+                  rgbColor={rgbColor}
+                />
+              )
             }
             return null
           })

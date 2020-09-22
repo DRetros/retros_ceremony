@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useFirebase, useFirebaseConnect } from 'react-redux-firebase'
 
-function Card ({ card, cardId }) {
+function Card ({ card, cardId, rgbColor }) {
   const firebase = useFirebase()
   const { gameId } = useParams()
 
@@ -37,19 +37,33 @@ function Card ({ card, cardId }) {
   }
 
   return (
-    <div className='card my-1'>
+    <div
+      className='rounded mb-3'
+      style={{ background: '#F4F4F4', borderLeft: `5px solid ${rgbColor}` }}
+    >
       <div className='card-body'>
-        <p className='card-text'>{card.description}</p>
-        <p className='card-text'>Votes: {card.votes}</p>
-        {gameSettings.step === 1 ? (
-          <button onClick={handleDelete} className='btn'>
-            Delete
-          </button>
-        ) : (
-          ''
-        )}
+        <div className='d-flex'>
+          <i
+            class='fas fa-user-circle m-2'
+            style={{ flex: 0, fontSize: '24px' }}
+          ></i>
+          <p className='card-text' style={{ flex: 1, fontSize: '.9em' }}>
+            {card.description}
+          </p>
+          {gameSettings.step === 1 ? (
+            <i
+              onClick={handleDelete}
+              className='fas fa-trash-alt m-2'
+              style={{ flex: 0, fontSize: '24px' }}
+            ></i>
+          ) : (
+            ''
+          )}
+        </div>
+
         {gameSettings.step === 2 ? (
           <div>
+            <p className='card-text'>Votes: {card.votes}</p>
             <button onClick={handleAddVote} className='btn'>
               Add vote
             </button>
