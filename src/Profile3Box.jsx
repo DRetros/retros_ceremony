@@ -6,7 +6,7 @@ import SideBar from './components/SideBar'
 import { Link } from 'react-router-dom'
 
 export default function Profile3Box () {
-  const settings = useSelector(state => state.retrospective.settings3box)
+  const settings = useSelector(state => state.retrospective.settings3box) 
   const [spaces, setSpace] = useState([])
   const [newDRetroName, setNewDRetroName] = useState('')
 

@@ -29,14 +29,27 @@ export default function Signin3Box() {
       console.log(threeBoxProfile)
       const box = await Box.openBox(accounts[0], window.ethereum);
       console.log(box)
-      const space = await box.openSpace('DRetros');
-      console.log(space)
+      const space = await box.openSpace('dretrosmetadata');
+      console.log("Last login saved")
+      let lastLoginSaved = await space.public.get("lastLogin")
+      console.log(lastLoginSaved)
+      let date = new Date()
+      console.log("Adding last login")
+      let lastLogin = ("00" + date.getDate()).slice(-2) + "/" + ("00" + (date.getMonth() + 1)).slice(-2) + "/" +date.getFullYear() + " " +("00" + date.getHours()).slice(-2) + ":" +("00" + date.getMinutes()).slice(-2) + ":" +("00" + date.getSeconds()).slice(-2)
+      console.log(lastLogin)
+      space.public.set("lastLogin", lastLogin)
 
-      const thread = await space.joinThread("application_list", {
+      const thread = await space.joinThread("notifications", {
         firstModerator: accounts[0],
         members: false
       });
+      console.log("thread")
       console.log(thread)
+      console.log("get notifications")
+      let posts = await thread.getPosts();
+      console.log(posts);
+      console.log("Add notification");
+      //thread.post({"msg": "welcome"});
 
       dispatch(addSettings3Box({
         account: accounts[0],
