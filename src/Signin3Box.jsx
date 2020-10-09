@@ -29,7 +29,7 @@ export default function Signin3Box() {
       console.log(threeBoxProfile)
       const box = await Box.openBox(accounts[0], window.ethereum);
       console.log(box)
-      const space = await box.openSpace('dretrosmetadata');
+      const space = await box.openSpace('dretros');
       console.log("Last login saved")
       let lastLoginSaved = await space.public.get("lastLogin")
       console.log(lastLoginSaved)
@@ -39,24 +39,13 @@ export default function Signin3Box() {
       console.log(lastLogin)
       space.public.set("lastLogin", lastLogin)
 
-      const thread = await space.joinThread("notifications", {
-        firstModerator: accounts[0],
-        members: false
-      });
-      console.log("thread")
-      console.log(thread)
-      console.log("get notifications")
-      let posts = await thread.getPosts();
-      console.log(posts);
-      console.log("Add notification");
-      //thread.post({"msg": "welcome"});
+      await space.public.remove('retrospectives');
 
       dispatch(addSettings3Box({
         account: accounts[0],
         profile: threeBoxProfile,
         box: box,
         space: space,
-        thread: thread,
     }))
     }
   }

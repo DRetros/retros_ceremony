@@ -12,21 +12,26 @@ export default function Profile3Box () {
 
   useEffect(() => {
     async function fetchRetrospectives () {
-      const storage = new Storage()
-      const sAvailable = await storage.getRetrospectives(settings.account)
-      console.log('spaces')
-      console.log(sAvailable)
-      setSpace(sAvailable)
+      const storage = new Storage();
+      let retros = await storage.getRetrospectives(settings.space);
+      setSpace(retros);
     }
 
     fetchRetrospectives()
   }, [])
 
   const onClickHandler = async () => {
-    const storage = new Storage()
-    const nSpace = await storage.createRetrospective(settings.box, newDRetroName)
-    let newSpaces = [...spaces, nSpace['_name']]
-    setSpace(newSpaces)
+    if (newDRetroName != ''){
+      let newDRetro = {
+        name: newDRetroName,
+        data: {},
+        url: `slkjhgd8763oijhd97863${newDRetroName}`
+      };
+      const storage = new Storage();
+      let newDRetros = await storage.createRetrospective(settings.space, newDRetro);
+      setSpace(newDRetros);
+      setNewDRetroName('');
+    }
   }
 
   return (
@@ -63,7 +68,7 @@ export default function Profile3Box () {
       <p className='lead'>Retrospectives available...</p>
       <ul>
         {spaces.map(item => (
-          <li key={item}><Link to={`/game/${item}`}>{`${item}`.replace('dretros-','')}</Link></li>
+          <li key={item['name']}><Link to={`/game/${item['url']}`}>{`${item['name']}`}</Link></li>
         ))}
       </ul>
     </div>
