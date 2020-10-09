@@ -39,7 +39,7 @@ export default function Signin3Box() {
       console.log(lastLogin)
       space.public.set("lastLogin", lastLogin)
 
-      await space.public.remove('retrospectives');
+      //await space.public.remove('retrospectives');
 
       dispatch(addSettings3Box({
         account: accounts[0],
