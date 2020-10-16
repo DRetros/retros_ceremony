@@ -52,15 +52,15 @@ export default function Signin3Box() {
 
   return (
     <div id="loginPage">
-      <form class="form-signin">
-      <div class="text-center mb-4">
-        <img class="mb-4" src="/images/logo-dretros.svg" alt="" width="72" height="72" />
-        <h1 class="h3 mb-3 font-weight-normal">DRetros</h1>
+      <form className="form-signin">
+      <div className="text-center mb-4">
+        <img className="mb-4" src="/images/logo-dretros.svg" alt="" width="72" height="72" />
+        <h1 className="h3 mb-3 font-weight-normal">DRetros</h1>
         <p>Create Retrospective meetings and get full control of your data. <a href="https://brave.com">Works in latest Brave.</a></p>
       </div>
 
-      <button class="btn btn-lg btn-primary btn-block" type="button" onClick={handleSignIn.bind(this)}>Sign in</button>
-      <p class="mt-5 mb-3 text-muted text-center">&copy; 2020</p>
+      <button className="btn btn-lg btn-primary btn-block" type="button" onClick={handleSignIn.bind(this)}>Sign in</button>
+      <p className="mt-5 mb-3 text-muted text-center">&copy; 2020</p>
     </form>
     </div>
   );

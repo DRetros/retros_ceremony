@@ -11,9 +11,9 @@ import SideBar from './SideBar'
 function SiteWrapper () {
   const settings = useSelector(state => state.retrospective.settings3box)
 
-  if (!settings.profile) {
-    return <Signin3Box></Signin3Box>
-  }
+  // if (!settings.profile) {
+  //   return <Signin3Box></Signin3Box>
+  // }
 
   return (
     <div className='site-wrapper'>

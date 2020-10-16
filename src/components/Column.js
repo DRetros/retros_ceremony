@@ -11,7 +11,7 @@ import {
 import Storage from '../services/StorageService'
 import Card from './Card'
 
-function Column ({ column }) {
+function Column ({ column, rgbColor, iconCss }) {
   console.log("Loading column 3Box");
   const settings = useSelector(state => state.retrospective.settings3box)
   const [game3Box, setGame3Box] = useState([])
@@ -73,30 +73,52 @@ function Column ({ column }) {
   }
 
   return (
-    <div className='d-flex flex-column flex-fill p-5 column'>
-      <h5>{column.title}</h5>
-      <span>{`${gameThread['_address']}`.substr(10,20)}....{`${gameThread['_address']}`.substr(`${gameThread['_address']}`.length - 5)}</span>
-      <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          className="form-control mb-2"
-          value={description}
-          placeholder='Write an idea'
-          onChange={event => setDescription(event.target.value)}
-        />
-      </form>
-      {!isLoaded(cards3Box) ? (
-        <div>Loading...</div>
-      ) : isEmpty(cards3Box) ? (
-        <div>Todos List Is Empty</div>
-      ) : (
-        Object.keys(cards3Box).map(key => {
-          if (cards3Box[key].columnId === column.id ) {
-            return <Card card={cards3Box[key]} cardId={key} columnTitle={column.title} key={key} />
-          }
-          return null
-        })
-      )}
+    <div className='d-flex flex-column flex-fill p-2 column'>
+      <div
+        className='d-flex p-3 rounded-top'
+        style={{ background: 'white', borderBottom: `5px solid ${rgbColor}` }}
+      >
+        <h5 style={{ flex: 1 }}>{column.title}</h5>
+        <i
+          class={iconCss}
+          style={{ flex: 0, fontSize: '24px', color: rgbColor }}
+        ></i>
+      </div>
+      <div className='p-3' style={{ background: 'white' }}>
+        <form onSubmit={handleSubmit}>
+          <input
+            type='text'
+            className='form-control mb-2'
+            value={description}
+            placeholder='Write an idea'
+            onChange={event => setDescription(event.target.value)}
+            style={{
+              border: 'dashed 2px lightgray'
+            }}
+          />
+        </form>
+      </div>
+      <div className='px-3 pb-3 rounded-bottom' style={{ background: 'white' }}>
+        {!isLoaded(cards) ? (
+          <div>Loading...</div>
+        ) : isEmpty(cards) ? (
+          <div>Todos List Is Empty</div>
+        ) : (
+          Object.keys(cards).map(key => {
+            if (cards[key].columnId === column.id) {
+              return (
+                <Card
+                  card={cards[key]}
+                  cardId={key}
+                  key={key}
+                  rgbColor={rgbColor}
+                />
+              )
+            }
+            return null
+          })
+        )}
+      </div>
     </div>
   )
 }

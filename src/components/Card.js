@@ -5,7 +5,7 @@ import { useFirebase, useFirebaseConnect } from 'react-redux-firebase'
 
 import Storage from '../services/StorageService'
 
-function Card ({ card, cardId, columnTitle }) {
+function Card ({ card, cardId, columnTitle, rgbColor }) {
   const firebase = useFirebase()
   const { gameId } = useParams()
   const settings = useSelector(state => state.retrospective.settings3box)
@@ -59,19 +59,33 @@ function Card ({ card, cardId, columnTitle }) {
   }
 
   return (
-    <div className='card my-1'>
+    <div
+      className='rounded mb-3'
+      style={{ background: '#F4F4F4', borderLeft: `5px solid ${rgbColor}` }}
+    >
       <div className='card-body'>
-        <p className='card-text'>{card.description}</p>
-        <p className='card-text'>Votes: {card.votes}</p>
-        {gameSettings.step === 1 ? (
-          <button onClick={handleDelete} className='btn'>
-            Delete
-          </button>
-        ) : (
-          ''
-        )}
+        <div className='d-flex'>
+          <i
+            class='fas fa-user-circle m-2'
+            style={{ flex: 0, fontSize: '24px' }}
+          ></i>
+          <p className='card-text' style={{ flex: 1, fontSize: '.9em' }}>
+            {card.description}
+          </p>
+          {gameSettings.step === 1 ? (
+            <i
+              onClick={handleDelete}
+              className='fas fa-trash-alt m-2'
+              style={{ flex: 0, fontSize: '24px' }}
+            ></i>
+          ) : (
+            ''
+          )}
+        </div>
+
         {gameSettings.step === 2 ? (
           <div>
+            <p className='card-text'>Votes: {card.votes}</p>
             <button onClick={handleAddVote} className='btn'>
               Add vote
             </button>

@@ -25,6 +25,12 @@ function Game () {
     }
     loadingGame3Box()
   }, [])
+  const colors = ['#48efb1', '#EF4875', '#867BFF']
+  const icons = [
+    'fas fa-check-circle',
+    'fas fa-times-circle',
+    'fas fa-arrow-circle-up'
+  ]
 
   useFirebaseConnect([`retrospectives/${gameId}`])
 
@@ -124,7 +130,7 @@ function Game () {
       {gameSettings.step === 3 ? <ActionItems /> : ''}
       <div className='d-flex flex-row justify-content-around'>
         {columns.map((column, index) => (
-          <Column column={column} key={index} />
+          <Column column={column} key={index} rgbColor={colors[index]} iconCss={icons[index]} />
         ))}
       </div>
     </div>
