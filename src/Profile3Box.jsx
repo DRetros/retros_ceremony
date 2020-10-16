@@ -6,25 +6,32 @@ import SideBar from './components/SideBar'
 import { Link } from 'react-router-dom'
 
 export default function Profile3Box () {
-  const settings = useSelector(state => state.retrospective.settings3box)
+  const settings = useSelector(state => state.retrospective.settings3box) 
   const [spaces, setSpace] = useState([])
   const [newDRetroName, setNewDRetroName] = useState('')
 
   useEffect(() => {
     async function fetchRetrospectives () {
-      const storage = new Storage()
-      const sAvailable = await storage.getRetrospectives(settings.account)
-      console.log('spaces')
-      console.log(sAvailable)
-      setSpace(sAvailable)
+      const storage = new Storage();
+      let retros = await storage.getRetrospectives(settings.space);
+      setSpace(retros);
     }
 
     fetchRetrospectives()
   }, [])
 
-  function handleCreateDRetro () {
-    console.log('Create DRetro', newDRetroName)
-    setNewDRetroName('')
+  const onClickHandler = async () => {
+    if (newDRetroName != ''){
+      let newDRetro = {
+        name: newDRetroName,
+        data: {},
+        url: `slkjhgd8763oijhd97863${newDRetroName}`
+      };
+      const storage = new Storage();
+      let newDRetros = await storage.createRetrospective(settings.space, newDRetro);
+      setSpace(newDRetros);
+      setNewDRetroName('');
+    }
   }
 
   return (
@@ -40,29 +47,28 @@ export default function Profile3Box () {
               aria-label='New DRetro Name'
               aria-describedby='button-addon2'
               value={newDRetroName}
-              onChange={e => setNewDRetroName(e.target.value)}
-            />
+              onChange={e => setNewDRetroName(e.target.value)}/>
+              
             <div class='input-group-append'>
               <button
                 class='btn btn-primary'
                 type='button'
-                onClick={handleCreateDRetro}
-              >
-                Create
+                onClick={onClickHandler}>
+                  Create
               </button>
             </div>
           </div>
-        </div>
+        </div>            
       </div>
 
-      <h1 className='landing-heading'>Welcome {settings.profile.name}!</h1>
+      <h1 className='landing-heading'>
+        Welcome {settings.profile.name}!
+      </h1>
       <p className='lead'>{settings.account}</p>
       <p className='lead'>Retrospectives available...</p>
       <ul>
         {spaces.map(item => (
-          <li key={item}>
-            <Link to={`/game/${item}`}>{item}</Link>
-          </li>
+          <li key={item['name']}><Link to={`/game/${item['url']}`}>{`${item['name']}`}</Link></li>
         ))}
       </ul>
     </div>
