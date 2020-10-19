@@ -11,18 +11,18 @@ function Card ({ card, cardId, columnTitle, rgbColor }) {
   const settings = useSelector(state => state.retrospective.settings3box)
   const [gameThread, setGameThread] = useState([])
 
-  useEffect(() => {
-    async function loading3BoxThread () {
-      //const retrospective = await storage.getRetrospective(settings.box, gameId);
-      //setGame3Box(retrospective);
-      let storage = new Storage();
+  // useEffect(() => {
+  //   async function loading3BoxThread () {
+  //     //const retrospective = await storage.getRetrospective(settings.box, gameId);
+  //     //setGame3Box(retrospective);
+  //     let storage = new Storage();
 
-      let column3Box = await storage.createColumn(settings.account, settings.box, gameId, columnTitle);
-      setGameThread(column3Box);
-    }
+  //     let column3Box = await storage.createColumn(settings.account, settings.box, gameId, columnTitle);
+  //     setGameThread(column3Box);
+  //   }
 
-    loading3BoxThread();
-  }, []);
+  //   loading3BoxThread();
+  // }, []);
 
 
   useFirebaseConnect([`retrospectives/${gameId}`])

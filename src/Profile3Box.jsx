@@ -26,7 +26,7 @@ export default function Profile3Box () {
       let newDRetro = {
         name: newDRetroName,
         data: {},
-        url: `slkjhgd8763oijhd97863${newDRetroName}`
+        url: `${newDRetroName}`
       }
       const storage = new Storage()
       let newDRetros = await storage.createRetrospective(

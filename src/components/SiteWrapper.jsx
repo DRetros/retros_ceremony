@@ -7,6 +7,7 @@ import Game from './Game'
 import Signin3Box from '../Signin3Box'
 import TopNavBar from './TopNavBar'
 import SideBar from './SideBar'
+import LoadGameScreen from './LoadGameScreen'
 
 function SiteWrapper () {
   const settings = useSelector(state => state.retrospective.settings3box)
@@ -27,6 +28,7 @@ function SiteWrapper () {
               <Route exact path='/'>
                 <Dashboard></Dashboard>
               </Route>
+              <Route path='/loading/:gameId' component={LoadGameScreen} />
               <Route path='/game/:gameId' component={Game} />
             </main>
           </div>
