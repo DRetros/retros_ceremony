@@ -4,33 +4,37 @@ import Storage from './services/StorageService'
 import TopNavBar from './components/TopNavBar'
 import SideBar from './components/SideBar'
 import { Link } from 'react-router-dom'
+import RetrospectiveCard from './components/RetrospectiveCard'
 
 export default function Profile3Box () {
-  const settings = useSelector(state => state.retrospective.settings3box) 
+  const settings = useSelector(state => state.retrospective.settings3box)
   const [spaces, setSpace] = useState([])
   const [newDRetroName, setNewDRetroName] = useState('')
 
   useEffect(() => {
     async function fetchRetrospectives () {
-      const storage = new Storage();
-      let retros = await storage.getRetrospectives(settings.space);
-      setSpace(retros);
+      const storage = new Storage()
+      let retros = await storage.getRetrospectives(settings.space)
+      setSpace(retros)
     }
 
     fetchRetrospectives()
   }, [])
 
   const onClickHandler = async () => {
-    if (newDRetroName != ''){
+    if (newDRetroName != '') {
       let newDRetro = {
         name: newDRetroName,
         data: {},
         url: `slkjhgd8763oijhd97863${newDRetroName}`
-      };
-      const storage = new Storage();
-      let newDRetros = await storage.createRetrospective(settings.space, newDRetro);
-      setSpace(newDRetros);
-      setNewDRetroName('');
+      }
+      const storage = new Storage()
+      let newDRetros = await storage.createRetrospective(
+        settings.space,
+        newDRetro
+      )
+      setSpace(newDRetros)
+      setNewDRetroName('')
     }
   }
 
@@ -47,30 +51,34 @@ export default function Profile3Box () {
               aria-label='New DRetro Name'
               aria-describedby='button-addon2'
               value={newDRetroName}
-              onChange={e => setNewDRetroName(e.target.value)}/>
-              
+              onChange={e => setNewDRetroName(e.target.value)}
+            />
+
             <div class='input-group-append'>
               <button
                 class='btn btn-primary'
                 type='button'
-                onClick={onClickHandler}>
-                  Create
+                onClick={onClickHandler}
+              >
+                Create
               </button>
             </div>
           </div>
-        </div>            
+        </div>
       </div>
 
-      <h1 className='landing-heading'>
-        Welcome {settings.profile.name}!
-      </h1>
+      <h1 className='landing-heading'>Welcome {settings.profile.name}!</h1>
       <p className='lead'>{settings.account}</p>
       <p className='lead'>Retrospectives available...</p>
-      <ul>
-        {spaces.map(item => (
-          <li key={item['name']}><Link to={`/game/${item['url']}`}>{`${item['name']}`}</Link></li>
-        ))}
-      </ul>
+      <div className='container'>
+        <div className='row'>
+          {spaces.map(item => (
+            <div className='col-4' style={{ padding: '10px' }}>
+              <RetrospectiveCard retrospective={item}></RetrospectiveCard>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

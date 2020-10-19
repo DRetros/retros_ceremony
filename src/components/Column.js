@@ -17,6 +17,7 @@ function Column ({ column, rgbColor, iconCss }) {
   const [game3Box, setGame3Box] = useState([])
   const [gameThread, setGameThread] = useState([])
   const [cards3Box, setCards3Box] = useState([])
+  const cards = cards3Box
 
   const [description, setDescription] = useState('')
   const { gameId } = useParams()
