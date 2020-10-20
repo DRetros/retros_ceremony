@@ -15,8 +15,8 @@
     "3box": "^1.22.2",
     "blockstack": "^19.2.5",
     "firebase": "^7.22.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-redux": "^7.2.1",
     "react-redux-firebase": "^3.7.0",
     "react-router-dom": "^5.2.0",
@@ -45,7 +45,7 @@
     ]
   },
   "devDependencies": {
-    "bootstrap": "^4.5.2",
-    "react-test-renderer": "^16.13.1"
+    "bootstrap": "^4.5.3",
+    "react-test-renderer": "^16.14.0"
   }
 }
