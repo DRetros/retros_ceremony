@@ -18,7 +18,6 @@ export default class Storage {
   async getRetrospectives (space) {
     let dretros = await space.public.get('retrospectives')
     if (dretros != undefined) {
-      console.log('dretros', dretros)
       return dretros
     } else {
       return []
@@ -27,9 +26,7 @@ export default class Storage {
 
   async getRetrospective (space, name) {
     let dretros = await this.getRetrospectives(space)
-    console.log('saving', dretros)
     for (var i = 0; i < dretros.length; i++) {
-      console.log('search', dretros[i]['name'], name)
       if (dretros[i]['name'] === name) {
         return dretros[i]
       }
@@ -38,13 +35,10 @@ export default class Storage {
 
   async saveRetrospective (space, name, cards) {
     let dretros = await this.getRetrospectives(space)
-    console.log('saving', dretros)
     for (var i = 0; i < dretros.length; i++) {
-      console.log('search', dretros[i]['name'], name)
       if (dretros[i]['name'] === name) {
         dretros[i].cards = cards
         space.public.set('retrospectives', dretros)
-        console.log('saving', dretros)
         return dretros
       }
     }

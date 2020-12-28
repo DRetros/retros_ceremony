@@ -26,20 +26,13 @@ export default function Signin3Box() {
     const accounts = await getAddressFromMetaMask();
     if (accounts) {
       const threeBoxProfile = await getThreeBox(accounts[0]);
-      console.log(threeBoxProfile)
       const box = await Box.openBox(accounts[0], window.ethereum);
-      console.log(box)
       const space = await box.openSpace('dretros');
-      console.log("Last login saved")
-      let lastLoginSaved = await space.public.get("lastLogin")
-      console.log(lastLoginSaved)
-      let date = new Date()
-      console.log("Adding last login")
-      let lastLogin = ("00" + date.getDate()).slice(-2) + "/" + ("00" + (date.getMonth() + 1)).slice(-2) + "/" +date.getFullYear() + " " +("00" + date.getHours()).slice(-2) + ":" +("00" + date.getMinutes()).slice(-2) + ":" +("00" + date.getSeconds()).slice(-2)
-      console.log(lastLogin)
-      space.public.set("lastLogin", lastLogin)
-
       //await space.public.remove('retrospectives');
+      let lastLoginSaved = await space.public.get("lastLogin")
+      let date = new Date()
+      let lastLogin = ("00" + date.getDate()).slice(-2) + "/" + ("00" + (date.getMonth() + 1)).slice(-2) + "/" +date.getFullYear() + " " +("00" + date.getHours()).slice(-2) + ":" +("00" + date.getMinutes()).slice(-2) + ":" +("00" + date.getSeconds()).slice(-2)
+      space.public.set("lastLogin", lastLogin)
 
       dispatch(addSettings3Box({
         account: accounts[0],
@@ -64,5 +57,4 @@ export default function Signin3Box() {
     </form>
     </div>
   );
-
 }

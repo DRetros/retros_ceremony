@@ -23,10 +23,14 @@ export default function Profile3Box () {
 
   const onClickHandler = async () => {
     if (newDRetroName != '') {
+      let date = new Date();
       let newDRetro = {
         name: newDRetroName,
+        owner: settings.account,
+        created: ("00" + date.getDate()).slice(-2) + "/" + ("00" + (date.getMonth() + 1)).slice(-2) + "/" +date.getFullYear(),
         data: {},
-        url: `${newDRetroName}`
+        url: `${newDRetroName}`,
+        participants: [settings.profile.name]
       }
       const storage = new Storage()
       let newDRetros = await storage.createRetrospective(
@@ -73,7 +77,7 @@ export default function Profile3Box () {
       <div className='container'>
         <div className='row'>
           {spaces.map(item => (
-            <div className='col-4' style={{ padding: '10px' }}>
+            <div className='col-4' style={{ padding: '10px' }} key={item['name']} >
               <RetrospectiveCard retrospective={item}></RetrospectiveCard>
             </div>
           ))}
