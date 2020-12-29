@@ -93,6 +93,10 @@ function Game () {
     await storage.saveRetrospective(settings.space, gameId, cards)
     console.log('clear fb')
     firebase.remove(`retrospectives/${gameId}/cards`)
+    firebase.update(`retrospectives/${gameId}/settings`, {
+      status: 'closed',
+      ...gameSettings
+    })
   }
 
   useEffect(() => {
@@ -117,6 +121,10 @@ function Game () {
     return 'Loading...'
   }
 
+  if (gameSettings.status !== 'open') {
+    return 'This retros was closed by the owner'
+  }
+
   return (
     <div className='d-flex flex-column'>
       <div>
@@ -128,10 +136,18 @@ function Game () {
           )}
           <div class='btn-toolbar mb-2 mb-md-0'>
             <div class='btn-group' role='group' aria-label='Basic example'>
-              <button type='button' onClick={prevStep} class='btn btn-secondary'>
+              <button
+                type='button'
+                onClick={prevStep}
+                class='btn btn-secondary'
+              >
                 Prev Step
               </button>
-              <button type='button' onClick={nextStep} class='btn btn-secondary'>
+              <button
+                type='button'
+                onClick={nextStep}
+                class='btn btn-secondary'
+              >
                 Next Step
               </button>
               <button

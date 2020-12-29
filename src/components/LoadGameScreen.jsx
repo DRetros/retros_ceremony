@@ -16,6 +16,13 @@ function LoadGameScreen () {
 
   useFirebaseConnect([`retrospectives/${gameId}`])
 
+  const gameSettings = useSelector(
+    ({ firebase: { data } }) =>
+      data.retrospectives &&
+      data.retrospectives[gameId] &&
+      data.retrospectives[gameId].settings
+  )
+
   const cards = useSelector(
     ({ firebase: { data } }) =>
       data.retrospectives &&
@@ -33,6 +40,10 @@ function LoadGameScreen () {
           firebase.push(`retrospectives/${gameId}/cards`, retro.cards[key])
         })
       }
+      firebase.update(`retrospectives/${gameId}/settings`, {
+        status: 'open',
+        ...gameSettings
+      })
       setIsReady(true)
     }
 
