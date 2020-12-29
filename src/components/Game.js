@@ -88,12 +88,9 @@ function Game () {
     })
   }
 
-  const onClickHandler = () => {
+  const onClickHandler = async () => {
     console.log(cards)
-    storage.saveRetrospective(settings.space, gameId, cards)
-  }
-
-  const clearFirebaseHandler = () => {
+    await storage.saveRetrospective(settings.space, gameId, cards)
     console.log('clear fb')
     firebase.remove(`retrospectives/${gameId}/cards`)
   }
@@ -140,16 +137,9 @@ function Game () {
               <button
                 class='btn btn-primary'
                 type='button'
-                onClick={clearFirebaseHandler}
-              >
-                Clear Firebase
-              </button>
-              <button
-                class='btn btn-primary'
-                type='button'
                 onClick={onClickHandler}
               >
-                Save to 3Box
+                Save and finish
               </button>
             </div>
           </div>

@@ -49,9 +49,9 @@ export default class Storage {
     console.log('saving', dretros)
     for (var i = 0; i < dretros.length; i++) {
       console.log('search', dretros[i]['name'], name)
-      if (dretros[i]['name'] === name) {
+      if (dretros[i]['name'] === name || dretros[i]['url'] === name) {
         dretros[i].cards = cards
-        space.public.set('retrospectives', dretros)
+        await space.public.set('retrospectives', dretros)
         console.log('saving', dretros)
         return dretros
       }
