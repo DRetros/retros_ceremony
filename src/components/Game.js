@@ -131,11 +131,11 @@ function Game () {
           )}
           <div class='btn-toolbar mb-2 mb-md-0'>
             <div class='btn-group' role='group' aria-label='Basic example'>
-              <button type='button' class='btn btn-secondary'>
-                Left
+              <button type='button' onClick={prevStep} class='btn btn-secondary'>
+                Prev Step
               </button>
-              <button type='button' class='btn btn-secondary'>
-                Middle
+              <button type='button' onClick={nextStep} class='btn btn-secondary'>
+                Next Step
               </button>
               <button
                 class='btn btn-primary'
