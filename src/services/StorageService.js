@@ -27,7 +27,7 @@ export default class Storage {
 
   async getRetrospective (space, name) {
     let dretros = await this.getRetrospectives(space)
-    console.log('saving', dretros)
+    console.log('getRetrospective', dretros)
     for (var i = 0; i < dretros.length; i++) {
       console.log(
         'search',
@@ -45,16 +45,10 @@ export default class Storage {
   }
 
   async saveRetrospective (space, name, cards) {
-    let dretros = await this.getRetrospectives(space)
-    console.log('saving', dretros)
-    for (var i = 0; i < dretros.length; i++) {
-      console.log('search', dretros[i]['name'], name)
-      if (dretros[i]['name'] === name || dretros[i]['url'] === name) {
-        dretros[i].cards = cards
-        await space.public.set('retrospectives', dretros)
-        console.log('saving', dretros)
-        return dretros
-      }
-    }
+    let dretro = await this.getRetrospectives(space, name)
+    console.log('trying to save', dretro)
+    await space.public.set('retrospectives', dretro)
+    console.log('saved', dretro)
+    return dretro
   }
 }
