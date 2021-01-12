@@ -26,8 +26,18 @@ export default class Storage {
 
   async getRetrospective (space, name) {
     let dretros = await this.getRetrospectives(space)
+    console.log('getRetrospective', dretros)
     for (var i = 0; i < dretros.length; i++) {
-      if (dretros[i]['name'] === name) {
+      console.log(
+        'search',
+        dretros[i]['url'],
+        dretros[i]['name'],
+        name,
+        dretros[i]['name'] === name,
+        dretros[i]['url'] === name
+      )
+      if (dretros[i]['name'] === name || dretros[i]['url'] === name) {
+        console.log('returning', dretros[i])
         return dretros[i]
       }
     }

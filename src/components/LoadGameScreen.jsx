@@ -16,6 +16,13 @@ function LoadGameScreen () {
 
   useFirebaseConnect([`retrospectives/${gameId}`])
 
+  const gameSettings = useSelector(
+    ({ firebase: { data } }) =>
+      data.retrospectives &&
+      data.retrospectives[gameId] &&
+      data.retrospectives[gameId].settings
+  )
+
   const cards = useSelector(
     ({ firebase: { data } }) =>
       data.retrospectives &&
@@ -28,8 +35,14 @@ function LoadGameScreen () {
     async function loadRetrospective() {
       const retro = await storage.getRetrospective(settings.space, gameId)
       console.log('loading', retro)
-      Object.keys(retro.cards).forEach(key => {
-        firebase.push(`retrospectives/${gameId}/cards`, retro.cards[key])
+      if (retro.cards) {
+        Object.keys(retro.cards).forEach(key => {
+          firebase.push(`retrospectives/${gameId}/cards`, retro.cards[key])
+        })
+      }
+      firebase.update(`retrospectives/${gameId}/settings`, {
+        status: 'open',
+        ...gameSettings
       })
       setIsReady(true)
     }

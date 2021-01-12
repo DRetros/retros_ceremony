@@ -11,20 +11,6 @@ function Card ({ card, cardId, columnTitle, rgbColor }) {
   const settings = useSelector(state => state.retrospective.settings3box)
   const [gameThread, setGameThread] = useState([])
 
-  // useEffect(() => {
-  //   async function loading3BoxThread () {
-  //     //const retrospective = await storage.getRetrospective(settings.box, gameId);
-  //     //setGame3Box(retrospective);
-  //     let storage = new Storage();
-
-  //     let column3Box = await storage.createColumn(settings.account, settings.box, gameId, columnTitle);
-  //     setGameThread(column3Box);
-  //   }
-
-  //   loading3BoxThread();
-  // }, []);
-
-
   useFirebaseConnect([`retrospectives/${gameId}`])
 
   const gameSettings = useSelector(
@@ -36,8 +22,7 @@ function Card ({ card, cardId, columnTitle, rgbColor }) {
 
   const handleDelete = event => {
     let storage = new Storage();
-    storage.deleteCard(gameThread, card.id);
-    //firebase.remove(`retrospectives/${gameId}/cards/${cardId}`)
+    firebase.remove(`retrospectives/${gameId}/cards/${cardId}`)
     console.log("Trying to delete " + card.description);
     console.log(card.id);
   }

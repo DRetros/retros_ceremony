@@ -88,14 +88,15 @@ function Game () {
     })
   }
 
-  const onClickHandler = () => {
+  const onClickHandler = async () => {
     console.log(cards)
-    storage.saveRetrospective(settings.space, gameId, cards)
-  }
-
-  const clearFirebaseHandler = () => {
+    await storage.saveRetrospective(settings.space, gameId, cards)
     console.log('clear fb')
     firebase.remove(`retrospectives/${gameId}/cards`)
+    firebase.update(`retrospectives/${gameId}/settings`, {
+      status: 'closed',
+      ...gameSettings
+    })
   }
 
   useEffect(() => {
@@ -120,6 +121,10 @@ function Game () {
     return 'Loading...'
   }
 
+  if (gameSettings.status !== 'open') {
+    return 'This retros was closed by the owner'
+  }
+
   return (
     <div className='d-flex flex-column'>
       <div>
@@ -131,25 +136,26 @@ function Game () {
           )}
           <div class='btn-toolbar mb-2 mb-md-0'>
             <div class='btn-group' role='group' aria-label='Basic example'>
-              <button type='button' class='btn btn-secondary'>
-                Left
-              </button>
-              <button type='button' class='btn btn-secondary'>
-                Middle
+              <button
+                type='button'
+                onClick={prevStep}
+                class='btn btn-secondary'
+              >
+                Prev Step
               </button>
               <button
-                class='btn btn-primary'
                 type='button'
-                onClick={clearFirebaseHandler}
+                onClick={nextStep}
+                class='btn btn-secondary'
               >
-                Clear Firebase
+                Next Step
               </button>
               <button
                 class='btn btn-primary'
                 type='button'
                 onClick={onClickHandler}
               >
-                Save to 3Box
+                Save and finish
               </button>
             </div>
           </div>
