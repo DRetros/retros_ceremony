@@ -11,9 +11,6 @@ export default function Profile3Box () {
   const [spaces, setSpace] = useState([])
   const [newDRetroName, setNewDRetroName] = useState('')
 
-  console.log("alias saved");
-  console.log(settings.alias);
-
   useEffect(() => {
     async function fetchRetrospectives () {
       const storage = new Storage()
