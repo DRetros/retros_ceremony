@@ -53,7 +53,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <ReactReduxFirebaseProvider {...rrfProps}>
-          <SiteWrapper></SiteWrapper>
+          <SiteWrapper />
         </ReactReduxFirebaseProvider>
       </Provider>
     )
@@ -63,7 +63,7 @@ export default class App extends Component {
     if (userSession.isSignInPending()) {
       userSession.handlePendingSignIn().then(userData => {
         window.history.replaceState({}, document.title, '/')
-        this.setState({ userData: userData })
+        this.setState({ userData })
       })
     }
   }
