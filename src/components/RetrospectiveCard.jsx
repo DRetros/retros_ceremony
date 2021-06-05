@@ -20,6 +20,9 @@ function RetrospectiveCard ({ retrospective }) {
         </Link>
       </div>
       <div style={{ padding: '10px', fontSize: '.8em' }}>
+      <div>
+          <span style={{ color: '#999999' }}>Created:</span> {`${retrospective['created']}`}
+        </div>
         <div>
           <span style={{ color: '#999999' }}>Status:</span> Not Started{' '}
           <i class='fas fa-circle'></i>
@@ -27,9 +30,9 @@ function RetrospectiveCard ({ retrospective }) {
         <div>
           <span style={{ color: '#999999' }}>Participants:</span>{' '}
           <ul>
-            <li>Bruce Wayne</li>
-            <li>Barbara Gordon</li>
-            <li>D Grayson</li>
+          {retrospective['participants'].map(item => (
+            <li key={item}>{item}</li>
+          ))}
           </ul>
         </div>
       </div>
