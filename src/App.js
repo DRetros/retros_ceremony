@@ -1,16 +1,10 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import firebase from 'firebase/app'
-import firebaseDb from 'firebase/database'
 
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 
-import Profile from './Profile.js'
-import Signin3Box from './Signin3Box'
 import { UserSession, AppConfig } from 'blockstack'
-
-import Dashboard from './Dashboard'
-import Game from './components/Game.js'
 
 import store from './redux/store'
 import SiteWrapper from './components/SiteWrapper.jsx'
@@ -59,7 +53,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <ReactReduxFirebaseProvider {...rrfProps}>
-          <SiteWrapper></SiteWrapper>
+          <SiteWrapper />
         </ReactReduxFirebaseProvider>
       </Provider>
     )
@@ -69,7 +63,7 @@ export default class App extends Component {
     if (userSession.isSignInPending()) {
       userSession.handlePendingSignIn().then(userData => {
         window.history.replaceState({}, document.title, '/')
-        this.setState({ userData: userData })
+        this.setState({ userData })
       })
     }
   }

@@ -4,16 +4,16 @@ import { useSelector } from 'react-redux'
 
 import Dashboard from './../Dashboard'
 import Game from './Game'
-import Signin3Box from '../Signin3Box'
+import SignInNear from './SignInNear'
 import TopNavBar from './TopNavBar'
 import SideBar from './SideBar'
 import LoadGameScreen from './LoadGameScreen'
 
-function SiteWrapper () {
+export default () => {
   const settings = useSelector(state => state.retrospective.settings3box)
 
   if (!settings.profile) {
-    return <Signin3Box></Signin3Box>
+    return <SignInNear />
   }
 
   return (
@@ -38,4 +38,3 @@ function SiteWrapper () {
   )
 }
 
-export default SiteWrapper
