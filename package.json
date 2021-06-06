@@ -8,7 +8,7 @@
   },
   "engines": {
     "node": "12.x",
-    "npm": "6.x" 
+    "npm": "6.x"
   },
   "bugs": {
     "url": "https://github.com/blockstack/hello-blockstack/issues"
@@ -20,6 +20,8 @@
     "blockstack": "^19.2.5",
     "firebase": "^7.22.1",
     "near-api-js": "^0.41.0",
+    "near-cli": "^2.0.1",
+    "near-sdk-as": "^3.2.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-redux": "^7.2.1",
@@ -32,7 +34,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:contract": "asb",
+    "deploy:contract": "near deploy"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -9,10 +9,10 @@ import TopNavBar from './TopNavBar'
 import SideBar from './SideBar'
 import LoadGameScreen from './LoadGameScreen'
 
-export default () => {
+export default ({ contract, currentUser }) => {
   const settings = useSelector(state => state.retrospective.settings3box)
 
-  if (!settings.profile) {
+  if (!currentUser) {
     return <SignInNear />
   }
 
@@ -26,7 +26,10 @@ export default () => {
             <main role='main' class='col-md-9 ml-sm-auto col-lg-10 pt-3 px-4'>
               <BrowserRouter />
               <Route exact path='/'>
-                <Dashboard></Dashboard>
+                <Dashboard
+                  contract={contract}
+                  currentUser={currentUser}
+                ></Dashboard>
               </Route>
               <Route path='/loading/:gameId' component={LoadGameScreen} />
               <Route path='/game/:gameId' component={Game} />
@@ -37,4 +40,3 @@ export default () => {
     </div>
   )
 }
-

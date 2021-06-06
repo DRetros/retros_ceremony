@@ -24,8 +24,6 @@ export default () => {
         walletConnection.requestSignIn(
             "example-contract.testnet",     // TODO: We need a contract 
             "DRetros",                      // TODO: Create a constant
-            "http://127.0.0.1:3000/success",  // TODO: We need sucess URL
-            "http://127.0.0.1:3000/failure"   // TODO: We need error URL
         )
     }
 

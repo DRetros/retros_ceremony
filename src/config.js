@@ -1,4 +1,5 @@
-const { CONTRACT_NAME = 'example-contract.testnet' } = process.env
+const { CONTRACT_NAME = 'dretros.testnet' } = process.env
+console.log('CONTRACT_NAME')
 
 module.exports = (env) => {
     switch (env) {

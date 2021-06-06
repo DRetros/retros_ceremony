@@ -38,33 +38,15 @@ const rrfProps = {
 const appConfig = new AppConfig()
 const userSession = new UserSession({ appConfig: appConfig })
 
-export default class App extends Component {
-  handleSignIn (e) {
-    e.preventDefault()
-    userSession.redirectToSignIn()
-  }
-
-  handleSignOut (e) {
-    e.preventDefault()
-    userSession.signUserOut(window.location.origin)
-  }
-
-  render () {
-    return (
-      <Provider store={store}>
-        <ReactReduxFirebaseProvider {...rrfProps}>
-          <SiteWrapper />
-        </ReactReduxFirebaseProvider>
-      </Provider>
-    )
-  }
-
-  componentDidMount () {
-    if (userSession.isSignInPending()) {
-      userSession.handlePendingSignIn().then(userData => {
-        window.history.replaceState({}, document.title, '/')
-        this.setState({ userData })
-      })
-    }
-  }
+function App ({ contract, currentUser }) {
+  console.log('currentUser', currentUser)
+  return (
+    <Provider store={store}>
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <SiteWrapper contract={contract} currentUser={currentUser} />
+      </ReactReduxFirebaseProvider>
+    </Provider>
+  )
 }
+
+export default App

@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function RetrospectiveCard ({ retrospective }) {
+  console.log(retrospective)
   return (
     <div
       className='rounded mb-3'
@@ -16,7 +17,7 @@ function RetrospectiveCard ({ retrospective }) {
           <i class='fas fa-pencil-alt'></i> <i class='far fa-trash-alt'></i>
         </div>
         <Link to={`/loading/${retrospective['url']}`}>
-          <i class='far fa-edit'></i> {`${retrospective['name']}`}
+          <i class='far fa-edit'></i> {`${retrospective['text']}`}
         </Link>
       </div>
       <div style={{ padding: '10px', fontSize: '.8em' }}>
@@ -30,7 +31,7 @@ function RetrospectiveCard ({ retrospective }) {
         <div>
           <span style={{ color: '#999999' }}>Participants:</span>{' '}
           <ul>
-          {retrospective['participants'].map(item => (
+          {retrospective['participants'] && retrospective['participants'].map(item => (
             <li key={item}>{item}</li>
           ))}
           </ul>
