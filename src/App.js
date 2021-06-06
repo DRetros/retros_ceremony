@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import firebase from 'firebase/app'
+import 'firebase/database'
 
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 
@@ -26,7 +27,7 @@ const rrfConfig = {
 }
 
 // Initialize firebase instance
-firebase.initializeApp(fbConfig)
+console.log(firebase.initializeApp(fbConfig))
 
 const rrfProps = {
   firebase,

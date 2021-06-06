@@ -2,14 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useFirebase, useFirebaseConnect, isLoaded } from 'react-redux-firebase'
 import { useParams } from 'react-router-dom'
+import Big from 'big.js';
 
 import Storage from '../services/StorageService'
 import Column from './Column'
 import ActionItems from './ActionItems'
 
+const SUGGESTED_DONATION = '0';
+const BOATLOAD_OF_GAS = Big(3).times(10 ** 13).toFixed();
+
 const storage = new Storage()
 
-function Game () {
+function Game ({ contract }) {
+  console.log('contract', contract)
   const columns = useSelector(state => state.retrospective.columns)
   const settings = useSelector(state => state.retrospective.settings3box)
   const { gameId } = useParams()
@@ -90,7 +95,17 @@ function Game () {
 
   const onClickHandler = async () => {
     console.log(cards)
-    await storage.saveRetrospective(settings.space, gameId, cards)
+    await contract.addMessage(
+      { text: JSON.stringify({
+        gameId,
+        cards
+      }) },
+      BOATLOAD_OF_GAS,
+      Big('0').times(10 ** 24).toFixed()
+    ).then(() => {
+      alert('success')
+    });
+
     console.log('clear fb')
     firebase.remove(`retrospectives/${gameId}/cards`)
     firebase.update(`retrospectives/${gameId}/settings`, {

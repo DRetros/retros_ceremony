@@ -16,7 +16,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "3box": "1.19.1",
     "blockstack": "^19.2.5",
     "firebase": "^7.22.1",
     "near-api-js": "^0.41.0",

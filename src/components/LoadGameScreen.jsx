@@ -33,7 +33,10 @@ function LoadGameScreen () {
 
   useEffect(() => {
     async function loadRetrospective() {
-      const retro = await storage.getRetrospective(settings.space, gameId)
+      // const retro = await storage.getRetrospective(settings.space, gameId)
+      const retro = {
+        cards: []
+      }
       console.log('loading', retro)
       if (retro.cards) {
         Object.keys(retro.cards).forEach(key => {

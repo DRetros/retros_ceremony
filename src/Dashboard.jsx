@@ -3,6 +3,7 @@ import Big from 'big.js';
 import RetrospectiveCard from './components/RetrospectiveCard'
 
 import Profile3Box from './Profile3Box'
+import { useHistory } from 'react-router';
 
 const SUGGESTED_DONATION = '0';
 const BOATLOAD_OF_GAS = Big(3).times(10 ** 13).toFixed();
@@ -10,23 +11,24 @@ const BOATLOAD_OF_GAS = Big(3).times(10 ** 13).toFixed();
 export default function Dasboard ({ contract, currentUser }) {
   const [newDRetroName, setNewDRetroName] = useState('')
   const [spaces, setSpaces] = useState([])
+  const history = useHistory()
 
   useEffect(() => {
     // TODO: don't just fetch once; subscribe!
-    contract.getMessages().then(setSpaces);
+    contract.getMessages().then(messages => {
+      setSpaces(messages.map(message => {
+        console.log(message)
+        try {
+          return JSON.parse(message.text)  
+        } catch (error) {
+          return {}
+        }
+      }))
+    });
   }, []);
 
   function handleOnCreate() {
-    contract.addMessage(
-      { text: newDRetroName },
-      BOATLOAD_OF_GAS,
-      Big('0').times(10 ** 24).toFixed()
-    ).then(() => {
-      contract.getMessages().then(messages => {
-        setSpaces(messages);
-        setNewDRetroName('');
-      });
-    });
+    history.push(`/loading/${newDRetroName}`)
   }
 
   return (

@@ -16,8 +16,8 @@ function RetrospectiveCard ({ retrospective }) {
           <span style={{ flex: 1 }}>Project:</span> <i class='far fa-eye'></i>{' '}
           <i class='fas fa-pencil-alt'></i> <i class='far fa-trash-alt'></i>
         </div>
-        <Link to={`/loading/${retrospective['url']}`}>
-          <i class='far fa-edit'></i> {`${retrospective['text']}`}
+        <Link to={`/loading/${retrospective['gameId']}`}>
+          <i class='far fa-edit'></i> {`${retrospective['gameId']}`}
         </Link>
       </div>
       <div style={{ padding: '10px', fontSize: '.8em' }}>

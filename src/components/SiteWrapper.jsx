@@ -8,9 +8,11 @@ import SignInNear from './SignInNear'
 import TopNavBar from './TopNavBar'
 import SideBar from './SideBar'
 import LoadGameScreen from './LoadGameScreen'
+import { useFirebaseConnect } from 'react-redux-firebase'
 
 export default ({ contract, currentUser }) => {
   const settings = useSelector(state => state.retrospective.settings3box)
+  useFirebaseConnect([`retrospectives/123`])
 
   if (!currentUser) {
     return <SignInNear />
@@ -32,7 +34,9 @@ export default ({ contract, currentUser }) => {
                 ></Dashboard>
               </Route>
               <Route path='/loading/:gameId' component={LoadGameScreen} />
-              <Route path='/game/:gameId' component={Game} />
+              <Route path='/game/:gameId'>
+                <Game contract={contract} currentUser={currentUser} />
+              </Route>
             </main>
           </div>
         </div>
