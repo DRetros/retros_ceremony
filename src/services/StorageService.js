@@ -1,5 +1,3 @@
-import Box from '3box'
-
 export default class Storage {
   async createRetrospective (space, dretroData) {
     let dretros = await this.getRetrospectives(space)
